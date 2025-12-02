@@ -1,6 +1,7 @@
 import compression from "compression";
 import cors from "cors";
 import express from "express";
+import router from "./app/routes";
 
 const app = express();
 
@@ -18,9 +19,10 @@ app.use(
 
 // Default route for testing
 app.get("/", (_req, res) => {
-  res.send("API is running");
+  res.send("WellCome To Event Hive API...");
 });
 
+app.use("/api", router);
 
 // 404 Handler
 app.use((req, res, next) => {

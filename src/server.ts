@@ -1,6 +1,7 @@
 import http, { Server } from "http";
 import app from "./app";
 import dotenv from "dotenv";
+import { envVars } from "./config/env";
 
 dotenv.config();
 
@@ -10,7 +11,7 @@ async function startServer() {
   try {
     server = http.createServer(app);
     server.listen(process.env.PORT, () => {
-      console.log(`🚀 Server is running on port ${process.env.PORT}`);
+      console.log(`🚀 Server is running on port ${envVars.PORT}`);
     });
 
     handleProcessEvents();
