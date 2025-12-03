@@ -1,0 +1,11 @@
+model Payment {
+    id            String        @id @default(cuid())
+    amount        Float
+    status        PaymentStatus @default(PAID)
+    transactionId String?
+
+    // relations
+    eventJoinId String    @unique
+    eventJoin   EventJoin @relation(fields: [eventJoinId], references: [id])
+    createdAt   DateTime  @default(now())
+}

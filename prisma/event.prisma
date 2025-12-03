@@ -1,0 +1,40 @@
+model Event {
+    id             String        @id @default(cuid())
+    title          String
+    description    String?
+    bannerImage    String?
+    location       String?
+    eventDate      DateTime?
+    startTime      String?
+    endTime        String?
+    ticketPrice    Float?         @default(0)
+    totalSeats     Int?
+    availableSeats Int?
+    status         EventStatus   @default(PENDING)
+    // relations
+    hostId         String
+    hosts          Host          @relation(fields: [hostId], references: [id])
+    category       String?
+    tickets        EventJoin[]
+    reviews        Review[]
+    createdAt      DateTime      @default(now())
+    updatedAt      DateTime      @updatedAt
+    participants   Participant[]
+}
+
+// -------------------------------------------
+// EVENT JOIN / TICKET MODEL
+// -------------------------------------------
+
+model EventJoin {
+    id          String       @id @default(cuid())
+    bookingDate DateTime     @default(now())
+    status      TicketStatus @default(CONFIRMED)
+    // relations
+    userId      String
+    eventId     String
+    participant Participant  @relation(fields: [userId], references: [id])
+    event       Event        @relation(fields: [eventId], references: [id])
+    payment     Payment?
+    createdAt   DateTime     @default(now())
+}

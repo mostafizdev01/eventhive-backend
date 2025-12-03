@@ -1,0 +1,11 @@
+model Review {
+    id          String      @id @default(cuid())
+    rating      Int // 1–5
+    comment     String?
+    // relations
+    userId      String
+    eventId     String
+    participant Participant @relation(fields: [userId], references: [id])
+    event       Event       @relation(fields: [eventId], references: [id])
+    createdAt   DateTime    @default(now())
+}
