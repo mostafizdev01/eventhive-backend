@@ -13,7 +13,6 @@ router.post(
         req.body = UserValidation.createUserValidationSchema.parse(JSON.parse(req.body.data))
         return UserController.createUser(req, res, next)
     }
-
 )
 
 

@@ -7,7 +7,6 @@ import { UserStatus } from "../../../../generated/prisma/enums";
 import { envVars } from "../../../config/env";
 
 const login = async (payload: { email: string, password: string }) => {
-    console.log("payload", payload)
     const user = await prisma.user.findUniqueOrThrow({
         where: {
             email: payload.email,

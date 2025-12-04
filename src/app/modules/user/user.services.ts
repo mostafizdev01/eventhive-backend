@@ -8,7 +8,6 @@ import { fileUploader } from "../../helper/fileUploader";
 const createUser = async (req: Request) => {
     // console.log("Created User Services...", payload.body)
     const body = req.body;
-    console.log("body", body)
     // console.log("file", req.files)
 
     if (req.file) {
@@ -23,7 +22,7 @@ const createUser = async (req: Request) => {
             name: body.name,
             email: body.email,
             password: hashPassword,
-            gender: body.Gender,
+            address: body.address,
             profilePhoto: body.profilePhoto
         }
     })
