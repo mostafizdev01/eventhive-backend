@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken'
 import { jwtHelper } from "../../helper/jwtHelper";
 import { UserStatus } from "../../../../generated/prisma/enums";
 import { envVars } from "../../../config/env";
+import ApiError from "../../errors/ApiError";
 
 const login = async (payload: { email: string, password: string }) => {
     const user = await prisma.user.findUniqueOrThrow({
@@ -15,14 +16,14 @@ const login = async (payload: { email: string, password: string }) => {
     })
 
     if (!user) {
-        throw new Error("Email is incorrect!")
+        throw new ApiError(404, "Email is incorrect!")
     }
 
     const {password, ...data} = user;
 
     const isCorrectPassword = await bcrypt.compare(payload.password, user.password);
     if (!isCorrectPassword) {
-        throw new Error("Password is incorrect!")
+        throw new ApiError(403,"Password is incorrect!")
     }
 
     const accessToken = jwtHelper.generateToken({ email: user.email, role: user.role }, envVars.JWT_SECRET, "7d");
