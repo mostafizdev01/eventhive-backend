@@ -4,8 +4,10 @@ import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken'
 import { jwtHelper } from "../../helper/jwtHelper";
 import { UserStatus } from "../../../../generated/prisma/enums";
+import { envVars } from "../../../config/env";
 
 const login = async (payload: { email: string, password: string }) => {
+    console.log("payload", payload)
     const user = await prisma.user.findUniqueOrThrow({
         where: {
             email: payload.email,
@@ -24,9 +26,9 @@ const login = async (payload: { email: string, password: string }) => {
         throw new Error("Password is incorrect!")
     }
 
-    const accessToken = jwtHelper.generateToken({ email: user.email, role: user.role }, "abcd", "1h");
+    const accessToken = jwtHelper.generateToken({ email: user.email, role: user.role }, envVars.JWT_SECRET, "7d");
 
-    const refreshToken = jwtHelper.generateToken({ email: user.email, role: user.role }, "abcdefgh", "90d");
+    const refreshToken = jwtHelper.generateToken({ email: user.email, role: user.role }, envVars.JWT_SECRET, "90d");
 
     return {
         accessToken,
