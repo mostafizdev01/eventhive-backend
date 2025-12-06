@@ -13,6 +13,15 @@ router.post(
         req.body = UserValidation.createUserValidationSchema.parse(JSON.parse(req.body.data))
         return UserController.createUser(req, res, next)
     }
+);
+
+router.post(
+    "/create-host",
+    fileUploader.upload.single('file'),
+    (req: Request, res: Response, next: NextFunction) => {
+        req.body = UserValidation.createUserValidationSchema.parse(JSON.parse(req.body.data))
+        return UserController.createHost(req, res, next)
+    }
 )
 
 

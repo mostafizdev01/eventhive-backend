@@ -30,7 +30,41 @@ const createUser = async (req: Request) => {
 
 }
 
+const createHost = async (req: Request) => {
+    // console.log("Created User Services...", payload.body)
+    const body = req.body;
+    // console.log("file", req.files)
+
+    if (req.file) {
+        const uploadResult = await fileUploader.uploadToCloudinary(req.file)
+        body.profilePhoto = uploadResult?.secure_url
+    }
+
+    const hashPassword = await bcrypt.hash(body.password, Number(envVars.BCRYPT_SALT_ROUND))
+
+    const resutl = await prisma.$transaction(async (tnx) => {
+       const user = await tnx.user.create({
+            data: {
+                name: body.name,
+                email: body.email,
+                password: hashPassword,
+                address: body.address,
+                profilePhoto: body.profilePhoto,
+                role: "HOST"
+            }
+        })
+
+        return await tnx.host.create({
+            data : {
+                userId: user?.id
+            }
+        })
+    })
+
+}
+
 
 export const userServices = {
-    createUser
+    createUser,
+    createHost
 }

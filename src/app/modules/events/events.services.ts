@@ -1,8 +1,12 @@
+import { prisma } from "../../shared/prisma"
 
 
 const createEvent = async (payload: any) => {
-   console.log("payload", payload)
-   return payload
+   const result = await prisma.event.create({
+    data: payload
+   })
+   
+   return result
 }
 
 export const EventServices = {
