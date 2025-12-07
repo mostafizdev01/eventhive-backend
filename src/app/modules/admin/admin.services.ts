@@ -1,7 +1,10 @@
+import { prisma } from "../../shared/prisma"
 
-const getAllUser = async (req: any) => {
+const getAllUser = async () => {
 
-    return req
+    const result = await prisma.user.findMany()
+
+    return result
 }
 
 export const AdminServices = {

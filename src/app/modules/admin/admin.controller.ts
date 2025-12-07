@@ -4,8 +4,7 @@ import sendResponse from "../../shared/sendResponse";
 import { AdminServices } from "./admin.services";
 
 const getAllUser = catchAsync(async (req: Request, res: Response) => {
-    console.log(req.body)
-    const result = await AdminServices.getAllUser(req.body)
+    const result = await AdminServices.getAllUser()
 
     sendResponse(res, {
         statusCode: 200,
