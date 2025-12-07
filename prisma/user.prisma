@@ -39,8 +39,6 @@ model Participant {
     // Relations
     userId     String      @unique
     user       User        @relation(fields: [userId], references: [id])
-    eventId    String
-    event      Event       @relation(fields: [eventId], references: [id])
     joinedAt   DateTime    @default(now())
     reviews    Review[]
     eventJoins EventJoin[]

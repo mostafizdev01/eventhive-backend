@@ -11,7 +11,9 @@ interface EnvConfig {
         CLOUDINARY_CLOUD_NAME: string,
         CLOUDINARY_API_KEY: string,
         CLOUDINARY_API_SECRET: string,
-    }
+    },
+    STRIPE_SECRET_KEY : string,
+    CLIENT_URL : string
     // JWT_ACCESS_SECRET: string,
     // JWT_ACCESS_EXPIRES: string,
     // JWT_REFRESH_SECRET: string,
@@ -25,7 +27,7 @@ interface EnvConfig {
 // , "", "NODE_ENV", "JWT_ACCESS_SECRET", "JWT_ACCESS_EXPIRES", "BCRYPT_SALT_ROUND", "SUPER_ADMIN_PASSWORD", "SUPER_ADMIN_EMAIL", "JWT_REFRESH_EXPIRES", "JWT_REFRESH_SECRET", "EXPRESS_SESSION_SECRET", "FRONTEND_URL"
 
 const loadEnvVariables = (): EnvConfig => {
-    const requiredEnvVariables: string[] = ["PORT", "DATABASE_URL", "NODE_ENV", "JWT_SECRET", "BCRYPT_SALT_ROUND", "CLOUDINARY_CLOUD_NAME", "CLOUDINARY_API_KEY", "CLOUDINARY_API_SECRET"];
+    const requiredEnvVariables: string[] = ["PORT", "DATABASE_URL", "NODE_ENV", "JWT_SECRET", "BCRYPT_SALT_ROUND", "CLOUDINARY_CLOUD_NAME", "CLOUDINARY_API_KEY", "CLOUDINARY_API_SECRET", "STRIPE_SECRET_KEY", "CLIENT_URL"];
 
     requiredEnvVariables.forEach(key => {
         if (!process.env[key]) {
@@ -46,6 +48,8 @@ const loadEnvVariables = (): EnvConfig => {
             CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY!,
             CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET!
         },
+        STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY as string, 
+        CLIENT_URL: process.env.CLIENT_URL as string, 
         // JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET as string,
         // JWT_ACCESS_EXPIRES: process.env.JWT_ACCESS_EXPIRES as string,
         // JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET as string,

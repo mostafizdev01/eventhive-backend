@@ -17,17 +17,19 @@ enum Gender {
 
 enum PaymentStatus {
     PAID
+    UNPAID
     FAILED
     REFUNDED
 }
 
 enum TicketStatus {
     CONFIRMED
+    PENDING
     CANCELLED
 }
 
 enum EventStatus {
-    PENDING
-    APPROVED
+    OPEN
+    CLOSE
     CANCELLED
 }

@@ -4,7 +4,6 @@ import sendResponse from "../../shared/sendResponse";
 import { JoinEventServices } from "./joinevent.services";
 
 const createJoinEvent = catchAsync(async (req: Request, res: Response) => {
-    console.log("req.body", req.body)
     const result = await JoinEventServices.createJoinEvent(req.body);
 
     sendResponse(res, {

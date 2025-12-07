@@ -17,16 +17,25 @@ const createUser = async (req: Request) => {
 
     const hashPassword = await bcrypt.hash(body.password, Number(envVars.BCRYPT_SALT_ROUND))
 
-    const user = await prisma.user.create({
-        data: {
-            name: body.name,
-            email: body.email,
-            password: hashPassword,
-            address: body.address,
-            profilePhoto: body.profilePhoto
-        }
+    const result = await prisma.$transaction(async (tnx) => {
+        const user = await tnx.user.create({
+            data: {
+                name: body.name,
+                email: body.email,
+                password: hashPassword,
+                address: body.address,
+                profilePhoto: body.profilePhoto
+            }
+        })
+        return await tnx.participant.create(({
+            data: {
+                userId: user.id,
+            }
+        }))
     })
-    return user;
+
+
+    return result
 
 }
 
@@ -43,7 +52,7 @@ const createHost = async (req: Request) => {
     const hashPassword = await bcrypt.hash(body.password, Number(envVars.BCRYPT_SALT_ROUND))
 
     const resutl = await prisma.$transaction(async (tnx) => {
-       const user = await tnx.user.create({
+        const user = await tnx.user.create({
             data: {
                 name: body.name,
                 email: body.email,
@@ -55,7 +64,7 @@ const createHost = async (req: Request) => {
         })
 
         return await tnx.host.create({
-            data : {
+            data: {
                 userId: user?.id
             }
         })

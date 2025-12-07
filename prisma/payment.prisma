@@ -1,9 +1,9 @@
 model Payment {
     id            String        @id @default(cuid())
     amount        Float
-    status        PaymentStatus @default(PAID)
+    status        PaymentStatus @default(UNPAID)
     transactionId String?
-
+    paymentGetWay String?
     // relations
     eventJoinId String    @unique
     eventJoin   EventJoin @relation(fields: [eventJoinId], references: [id])

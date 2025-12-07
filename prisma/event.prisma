@@ -7,10 +7,10 @@ model Event {
     eventDate      DateTime?
     startTime      String?
     endTime        String?
-    ticketPrice    Float?         @default(0)
-    totalSeats     Int?
-    availableSeats Int?
-    status         EventStatus   @default(PENDING)
+    ticketPrice    Float?        @default(0)
+    totalSeats     Int?          @default(0)
+    availableSeats Int?          @default(0)
+    status         EventStatus   @default(OPEN)
     // relations
     hostId         String
     hosts          Host          @relation(fields: [hostId], references: [id])
@@ -19,7 +19,6 @@ model Event {
     reviews        Review[]
     createdAt      DateTime      @default(now())
     updatedAt      DateTime      @updatedAt
-    participants   Participant[]
 }
 
 // -------------------------------------------
@@ -27,14 +26,15 @@ model Event {
 // -------------------------------------------
 
 model EventJoin {
-    id          String       @id @default(cuid())
-    bookingDate DateTime     @default(now())
-    status      TicketStatus @default(CONFIRMED)
+    id            String        @id @default(cuid())
+    bookingDate   DateTime      @default(now())
+    status        TicketStatus  @default(PENDING)
+    paymentStatus PaymentStatus @default(UNPAID)
     // relations
-    userId      String
-    eventId     String
-    participant Participant  @relation(fields: [userId], references: [id])
-    event       Event        @relation(fields: [eventId], references: [id])
-    payment     Payment?
-    createdAt   DateTime     @default(now())
+    userId        String
+    eventId       String
+    participant   Participant   @relation(fields: [userId], references: [id])
+    event         Event         @relation(fields: [eventId], references: [id])
+    payment       Payment?
+    createdAt     DateTime      @default(now())
 }

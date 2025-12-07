@@ -2,12 +2,18 @@ import compression from "compression";
 import cors from "cors";
 import express from "express";
 import router from "./app/routes";
+import { paymentController } from "./app/modules/payment/payment.controller";
 
 const app = express();
 
 // Middleware
 app.use(cors()); // Enables Cross-Origin Resource Sharing
 app.use(compression()); // Compresses response bodies for faster delivery
+
+
+app.post( "/webhook", express.raw({type: "application/json"}),
+paymentController.handleStripeWebhookPayment)
+
 app.use(express.json()); // Parse incoming JSON requests
 
 app.use(
