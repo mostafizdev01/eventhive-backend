@@ -4,20 +4,8 @@ dist
 build
 .log
 .logger
-/src/generated/prisma
 
 /src/generated/prisma
-
-/src/generated/prisma
-
-/src/generated/prisma
-
-/src/generated/prisma
-
-/src/generated/prisma
-
-/src/generated/prisma
-
-/src/generated/prisma
-
+uploads/*
+!uploads/.gitkeep
 /generated/prisma

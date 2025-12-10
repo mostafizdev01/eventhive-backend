@@ -5,7 +5,6 @@ import { prisma } from "../../shared/prisma"
 const createEvent = async (req: any) => {
 
     const body = req.body;
-
     if(req.file){
         const uploadResult = await fileUploader.uploadToCloudinary(req.file)
         body.bannerImage = uploadResult?.secure_url

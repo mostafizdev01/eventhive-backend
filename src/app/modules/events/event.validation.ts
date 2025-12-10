@@ -3,9 +3,16 @@ import z from "zod";
 
 const createEventValidationSchema = z.object({
     title: z.string().nonempty("Title is required"),
-    hostId: z.string().nonempty("hostId is required")
-    // email: z.string().nonempty("Email is required"),
-    // address: z.string().nonempty("address is required"),
+    description: z.string().nonempty("description is required"),
+    hostId: z.string().nonempty("hostId is required"),
+    category: z.string().nonempty("category is required"),
+    ticketPrice: z.coerce.number().min(0, "ticketPrice is required"),
+    totalSeats: z.coerce.number().min(1, "totalSeats is required"),
+    availableSeats: z.coerce.number().min(0, "availableSeats is required"),
+    location: z.string().nonempty("location is required"),
+    eventDate: z.string().nonempty("eventDate is required"),
+    startTime: z.string().nonempty("startTime is required"),
+    endTime: z.string().nonempty("endTime is required"),
     // password: z.string()
 });
 
