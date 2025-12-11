@@ -1,101 +1,223 @@
+🎉 Event Hive Backend
 
-# Next Blog Starter
+A modern event management backend powered by Node.js, Express.js, Prisma, and Stripe Payment Gateway.
 
-A simple **Blog Application Starter Pack** built with **TypeScript, Express.js**.  
-This project is designed for the **Next Level Web Development Bootcamp** to help learners practice Prisma hands-on by building a blog platform.
+🚀 Overview
 
----
+Event Hive is a complete event management backend system where Admins, Hosts, and Users can seamlessly manage and participate in events.
+This backend includes Authentication, Role-based Access, Event Management, Ticket Booking, Payment Integration, and Revenue Tracking.
 
-## Features
-- TypeScript + Express.js setup
-- Modular project structure
-- Environment configuration with `dotenv`
-- Ready to extend with blog modules (Posts, Users, etc.)
+🛠️ Tech Stack
+| Category    | Technology                                    |
+| ----------- | --------------------------------------------- |
+| Runtime     | **Node.js**                                   |
+| Framework   | **Express.js**                                |
+| ORM         | **Prisma**                                    |
+| Database    | PostgreSQL / MySQL / SQL Server (Your choice) |
+| Payment     | **Stripe**                                    |
+| Auth        | JWT + Bcrypt                                  |
+| Validation  | Zod / Express-Validator                       |
+| Environment | Dotenv                                        |
 
----
+event-hive-backend/
+│── src/
+│   ├── app/
+│   │   ├── modules/
+│   │   │   ├── auth/
+│   │   │   ├── user/
+│   │   │   ├── event/
+│   │   │   ├── eventJoin/
+│   │   │   ├── payment/
+│   │   │   └── dashboard/
+│   ├── utils/
+│   ├── middlewares/
+│   ├── config/
+│   └── server.ts
+│── prisma/
+│── package.json
+│── README.md
 
-## Installation
+🎭 Features
+👤 Admin Dashboard
 
-Clone the repository:
+Admins can manage the entire platform:
 
-```bash
-git clone https://github.com/Apollo-Level2-Web-Dev/next-blog-starter.git
-cd next-blog-starter
-```
+User Management
 
-Install dependencies:
+Event Management
 
-```bash
-# using npm
+Payment & Revenue Overview
+
+Delete/Block users
+
+Update event categories
+
+System monitoring
+
+🧑‍💼 Host Dashboard
+
+Hosts manage their own events:
+
+Event Management
+
+Create new events
+
+Update event details
+
+Delete event
+
+Add/Edit ticket price, schedule, location
+
+Manage event capacity
+
+View join requests
+
+See attendees & payment status
+
+Attendee Control
+
+View who joined
+
+See payment status (paid/unpaid)
+
+Mark "Offline Payment" as PAID
+
+Revenue
+
+Total event revenue
+
+Event-wise revenue
+
+Total tickets sold
+
+🙋 User Dashboard
+
+Normal attendee features:
+
+Browse all events
+
+Search + filter by date, price, city, category
+
+Join an event
+
+Online payment via Stripe
+
+My Tickets / My Events
+
+Upcoming events
+
+Past attended events
+
+Payment status tracking
+
+💳 Payment System (Stripe Integrated)
+
+✔ User clicks Join Event → Creates eventJoin record with UNPAID
+✔ User proceeds to Stripe Checkout
+✔ After payment success → paymentStatus = PAID
+✔ Generates ticket confirmation
+
+🧩 Database Schema (Important Models)
+User
+
+id
+
+name
+
+email
+
+password
+
+role (ADMIN / HOST / USER)
+
+Event
+
+hostId
+
+title
+
+description
+
+category
+
+price
+
+capacity
+
+location
+
+date & time
+
+EventJoin
+
+userId
+
+eventId
+
+paymentStatus (UNPAID / PAID)
+
+Payment
+
+joinId
+
+transactionId
+
+amount
+
+status
+
+method
+
+timestamp
+
+⚙️ Installation
+git clone https://github.com/mostafizdev01/event-hive-backend
+cd event-hive-backend
 npm install
 
-# using yarn
-yarn install
+🔧 Environment Variables (.env Example)
+DATABASE_URL="your-postgres-url"
+JWT_SECRET="your-secret"
+STRIPE_SECRET_KEY="your-stripe-secret"
+FRONTEND_URL="http://localhost:3000"
 
-# using pnpm
-pnpm install
-```
+📌 API Highlights
+Auth API
 
-Setup environment variables:
+POST /auth/register
 
-```bash
-cp .env.example .env
-```
+POST /auth/login
 
-Run the development server:
+Event API
 
-```bash
-# using npm
-npm run dev
+POST /events
 
-# using yarn
-yarn dev
+GET /events/:id
 
-# using pnpm
-pnpm dev
-```
+GET /events
 
----
+PATCH /events/:id
 
-## Folder Structure
+DELETE /events/:id
 
-```
-Prisma-Blog/
-│── node_modules/          # Dependencies
-│── src/
-│   ├── app.ts             # Express app configuration
-│   ├── server.ts          # Server entry point
-│   ├── config/            # Environment & configuration files
-│   └── modules/           # Application modules (posts, users, etc.)
-│── package.json           # Project metadata & scripts
-│── pnpm-lock.yaml         # Lockfile (pnpm)
-│── tsconfig.json          # TypeScript configuration
-│── README.md              # Documentation
-```
+Event Join API
 
----
+POST /events/:id/join
 
-## Scripts
+GET /user/joined-events
 
-```bash
-# Run in development mode
-pnpm dev
+Payment API
 
-# Build for production
-pnpm build
+POST /payment/create-checkout-session
 
-# Run production build
-pnpm start
-```
+POST /payment/webhook
 
----
+👨‍💻 Author
 
-## Learning Objective
+Mostafiz
+GitHub: https://github.com/mostafizdev01
 
-This starter pack is part of the **Next Level Web Development Bootcamp** curriculum.
-By using this project, students will learn how to:
 
-* Connect a Node.js app with Prisma ORM
-* Build modular APIs
-* Manage environment variables
-* Structure scalable backend projects
+⭐ Contributions
+
+Pull requests are welcome!
