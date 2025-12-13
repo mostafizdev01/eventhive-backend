@@ -11,9 +11,6 @@ const login = async (payload: { email: string, password: string }) => {
         where: {
             email: payload.email,
             status: UserStatus.ACTIVE
-        }, 
-        include: {
-            host: true
         }
     })
 
@@ -28,9 +25,9 @@ const login = async (payload: { email: string, password: string }) => {
         throw new ApiError(403,"Password is incorrect!")
     }
 
-    const accessToken = jwtHelper.generateToken(data, envVars.JWT_SECRET, "7d");
+    const accessToken = jwtHelper.generateToken({ email: user.email, role: user.role }, envVars.JWT_SECRET, "7d");
 
-    const refreshToken = jwtHelper.generateToken(data, envVars.JWT_SECRET, "90d");
+    const refreshToken = jwtHelper.generateToken({ email: user.email, role: user.role }, envVars.JWT_SECRET, "90d");
 
     return {
         accessToken,

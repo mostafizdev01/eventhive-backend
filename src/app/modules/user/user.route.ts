@@ -24,5 +24,7 @@ router.post(
     }
 )
 
+router.post("/me", UserController.getUserInfo)
+
 
 export const userRoutes = router;

@@ -1,3 +1,4 @@
+import { SortOrder } from './../../../../generated/prisma/internal/prismaNamespaceBrowser';
 import { fileUploader } from "../../helper/fileUploader";
 import { prisma } from "../../shared/prisma"
 
@@ -17,6 +18,19 @@ const createEvent = async (req: any) => {
    return result
 }
 
+const getMyEvent = async (hostId: string) => {
+    const result = await prisma.event.findMany({
+        where : {hostId},
+        orderBy: {
+            createdAt: "desc"
+        }
+    })
+
+    return result
+
+}
+
 export const EventServices = {
-    createEvent
+    createEvent,
+    getMyEvent
 }
