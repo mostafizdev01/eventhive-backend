@@ -22,7 +22,7 @@ router.post(
     "/create-joinevent",  JoinEventControllers.createJoinEvent
 );
 
-router.get("/my-event/:id",  EventControllers.getMyEvent)
+router.post("/my-event",  EventControllers.getMyEvent)
 router.get("/all-event",  EventControllers.getAllEvent)
 router.get("/:id",  EventControllers.getSingleEvent)
 

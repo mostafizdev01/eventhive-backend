@@ -16,8 +16,8 @@ const createEvent = catchAsync(async (req: Request, res: Response) => {
 })
 
 const getMyEvent = catchAsync(async (req: Request, res: Response) => {
-    const { id } = req.params
-    const result = await EventServices.getMyEvent(id);
+    const { hostId } = req.body
+    const result = await EventServices.getMyEvent(hostId);
 
     sendResponse(res, {
         statusCode: 201,
