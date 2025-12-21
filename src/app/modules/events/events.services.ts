@@ -19,6 +19,9 @@ const createEvent = async (req: any) => {
 }
 
 const getMyEvent = async (hostId: string) => {
+    if(!hostId){
+        return []
+    }
     const result = await prisma.event.findMany({
         where : {hostId},
         orderBy: {
@@ -30,7 +33,31 @@ const getMyEvent = async (hostId: string) => {
 
 }
 
+/// get all event
+const getAllEvent = async () => {
+    const res = await prisma.event.findMany();
+    return res;
+}
+
+// get single event
+const getSingleEvent = async (eventId: string)=> {
+    if(!eventId){
+        return []
+    }
+    const res = await prisma.event.findUnique({
+        where: {id: eventId},
+        include: {
+            hosts: true,
+            reviews: true
+        }
+    })
+
+    return res
+}
+
 export const EventServices = {
     createEvent,
-    getMyEvent
+    getMyEvent,
+    getAllEvent,
+    getSingleEvent
 }

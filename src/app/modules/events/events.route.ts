@@ -22,6 +22,8 @@ router.post(
     "/create-joinevent",  JoinEventControllers.createJoinEvent
 );
 
-router.post("/my-event",  EventControllers.getMyEvent)
+router.get("/my-event/:id",  EventControllers.getMyEvent)
+router.get("/all-event",  EventControllers.getAllEvent)
+router.get("/:id",  EventControllers.getSingleEvent)
 
 export const eventRoutes = router;
